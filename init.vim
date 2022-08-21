@@ -11,9 +11,12 @@ call plug#begin()
  Plug 'tpope/vim-fugitive'
  " Auto complete
  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+ "OceanicNext color theme
+ Plug 'mhartington/oceanic-next'
 call plug#end()
 "================SETUP NEOVIM=========================="
 syntax on
+colorscheme OceanicNext
 set encoding=UTF-8
 set shiftwidth=2
 set autoindent
@@ -23,10 +26,14 @@ let g:airline#extensions#hunks#enabled=0
 let g:airline#extensions#branch#enabled=1
 let g:airline_solarized_bg='light'
 let g:coc_global_extensions = ['coc-json', 'coc-git']
+let g:loaded_python3_provider = 0 " Disabled python provider
+let g:loaded_ruby_provider = 0 " Disabled ruby provider
 "================MAP KEYS=============================="
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-b> :NERDTreeToggle ~/Desktop/WS/ <CR>
 nnoremap <C-f> :NERDTreeFind<CR>
+nnoremap <C-l> :+tabnext <CR>
+nnoremap <C-H> :-tabnext <CR>
 
 " Set default directory on startup nerdtree
 autocmd VimEnter * NERDTree ~/Desktop/WS/
@@ -52,10 +59,9 @@ function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-" Use <c-space> to trigger completion.
-if has('nvim')
+" Use <c-space> to trigger completion. if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
+
